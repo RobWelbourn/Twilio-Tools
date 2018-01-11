@@ -1,26 +1,28 @@
 # Twilio-Tools
 Miscellaneous Python utilities for managing Twilio accounts
 
+## Installation
+Clone or unzip this repository into your project directory.  If you're using a [Virtual Environment](https://virtualenv.pypa.io/en/stable/userguide/), do the following in your project directory:
+```
+python3 -m venv ENV
+source ENV/bin/activate
+```
+Next, install the required Python libraries:
+```
+pip install requirements.txt
+```
+
 ## recordings.py
 Lists and/or deletes Twilio recording files, optionally archiving them.
 
-### Pre-Requisites
-`recordings.py` requires the [Twilio](https://github.com/twilio/twilio-python), [Begins](https://pypi.python.org/pypi/begins/0.9) and [Requests](http://docs.python-requests.org/en/master/) packages:
-
 ```
-pip install twilio
-pip install begins
-pip install requests
-```
+usage: recordings.py [-h] [--delete] [--no-delete] [--archive ARCHIVE]
+                     [--after AFTER] [--before BEFORE] [--summary]
+                     [--no-summary] [--verbose] [--no-verbose] [--confirm]
+                     [--no-confirm] [--account ACCOUNT] [--password PASSWORD]
+                     [--subaccount SUBACCOUNT]
 
-It was tested using Python 3.6.
-
-### Usage
-```
-recordings.py [-h] [--delete] [--no-delete] [--archive ARCHIVE]
-              [--after AFTER] [--before BEFORE] [--summary]
-              [--no-summary] [--verbose] [--no-verbose] [--confirm]
-              [--no-confirm] [--account ACCOUNT] [--password PASSWORD]
+Lists and/or deletes Twilio recording files, optionally archiving them.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -40,24 +42,15 @@ optional arguments:
                         Account SID; if not given, value of environment
                         variable TWILIO_ACCOUNT_SID (default: None)
   --password PASSWORD, -p PASSWORD
-                        Auth token; if not given, value of environment                       
+                        Auth token; if not given, value of environment
                         variable TWILIO_AUTH_TOKEN (default: None)
+  --subaccount SUBACCOUNT, -s SUBACCOUNT
+                        If present, subaccount to use (default: None)
  ```                       
 
 ## cdrs.py
 Prints Twilio call detail records for a given date range.
 
-### Pre-Requisites
-`recordings.py` requires the [Twilio](https://github.com/twilio/twilio-python) and [Begins](https://pypi.python.org/pypi/begins/0.9) packages:
-
-```
-pip install twilio
-pip install begins
-```
-
-It was tested using Python 3.6.
-
-### Usage
 ```
 usage: cdrs.py [-h] [--start START] [--end END] [--account ACCOUNT]
                [--password PASSWORD] [--subaccount SUBACCOUNT]
