@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 """
-Lists and/or deletes Twilio recording files, optionally archiving them.
-
 usage: recordings.py [-h] [--delete] [--no-delete] [--archive ARCHIVE]
                      [--after AFTER] [--before BEFORE] [--summary]
                      [--no-summary] [--verbose] [--no-verbose] [--confirm]
                      [--no-confirm] [--account ACCOUNT] [--password PASSWORD]
+                     [--subaccount SUBACCOUNT]
+
+Lists and/or deletes Twilio recording files, optionally archiving them.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -28,6 +29,8 @@ optional arguments:
   --password PASSWORD, -p PASSWORD
                         Auth token; if not given, value of environment
                         variable TWILIO_AUTH_TOKEN (default: None)
+  --subaccount SUBACCOUNT, -s SUBACCOUNT
+                        If present, subaccount to use (default: None)
 """
 
 # Author:  Robert Welbourn
@@ -56,15 +59,16 @@ def download(url, filename):
 
 
 @begin.start
-def main(delete:   "Delete recordings" = False,
-         archive:  "Path to local directory" = None,
-         after:    "yyyy-mm-dd" = None,
-         before:   "yyyy-mm-dd" = None,
-         summary:  "Count recordings" = True,
-         verbose:  "List recording details" = False,
-         confirm:  "Confirm deletions" = True,
-         account:  "Account SID; if not given, value of environment variable TWILIO_ACCOUNT_SID" = None,
-         password: "Auth token; if not given, value of environment variable TWILIO_AUTH_TOKEN" = None):
+def main(delete:     "Delete recordings" = False,
+         archive:    "Path to local directory" = None,
+         after:      "yyyy-mm-dd" = None,
+         before:     "yyyy-mm-dd" = None,
+         summary:    "Count recordings" = True,
+         verbose:    "List recording details" = False,
+         confirm:    "Confirm deletions" = True,
+         account:    "Account SID; if not given, value of environment variable TWILIO_ACCOUNT_SID" = None,
+         password:   "Auth token; if not given, value of environment variable TWILIO_AUTH_TOKEN" = None,
+         subaccount: "If present, subaccount to use" = None):
     """
     Lists and/or deletes Twilio recording files, optionally archiving them.
     """
@@ -114,9 +118,9 @@ def main(delete:   "Delete recordings" = False,
 
     # Get the account name; this is used for the confirmation, and is a useful
     # check for correct username and password.
-    client = Client(account, password)
+    client = Client(account, password, subaccount)
     try:
-        account_struct = client.api.accounts(account).fetch()
+        account_struct = client.api.accounts(subaccount if subaccount else account).fetch()
         account_name = account_struct.friendly_name
     except TwilioException:
         sys.exit("Error: invalid account SID or auth token")
