@@ -145,7 +145,7 @@ def main(delete:     "Delete recordings" = False,
     recordings = client.recordings.list(date_created_before=before, date_created_after=after)
 
     if verbose:
-        print("Date/Time Created,Recording SID,Account SID,URI,Duration,Action")
+        print("Date/Time Created,Recording SID,Call SID,URI,Duration,Action")
 
     count = 0
     downloaded = 0
@@ -169,8 +169,10 @@ def main(delete:     "Delete recordings" = False,
                 downloaded += 1
 
         if delete:
-            client.recordings(recording.sid).delete()
-            action = "deleted" if action == "" else (action + "+deleted")
+            if client.recordings(recording.sid).delete():     
+                action = "deleted" if action == "" else (action + "+deleted")
+            else:
+                action = "NOT DELETED" if action == "" else (action + "+NOT DELETED")
 
         if verbose:
             print("{0},{1},{2},{3},{4}".format(
