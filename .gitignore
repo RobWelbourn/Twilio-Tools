@@ -6,3 +6,6 @@ ENV/
 
 # Python
 __pycache__/
+
+# Miscellaneous
+*.csv

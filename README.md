@@ -9,7 +9,7 @@ source ENV/bin/activate
 ```
 Next, install the required Python libraries:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## recordings.py
