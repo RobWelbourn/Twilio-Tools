@@ -3,7 +3,7 @@ begins==0.9
 certifi==2019.6.16
 chardet==3.0.4
 idna==2.8
-PyJWT==1.7.1
+PyJWT==2.4.0
 PySocks==1.7.0
 pytz==2019.2
 requests==2.22.0
